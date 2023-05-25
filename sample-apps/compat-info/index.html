@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+  <head>
+    <title>FaceTec Browser SDK</title>
+    <meta charset="utf-8" />
+    <link rel="icon" href="../../sample-app-resources/images/favicon.ico">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <style>
+    *, html, body{
+      background: none;
+      color:black;
+    }
+  </style>
+  <body>
+    <div class="navbar" style="display:none;" id="browserNavBar"></div>
+    <h3>FaceTec Browser SDK Compatibility Info</h3>
+    <pre id="info"></pre>
+    <p id="error-line"></p>
+    <a href="https://webrtc.github.io/samples/src/content/getusermedia/gum/">getUserMedia Basic Example<br/><br/</a>
+    <a href="../../">Back to Home</a>
+  </body>
+  <script>
+    (function() {
+      try {
+        var testForConstSupport = new Function("'use strict'; const testConstSupport = 0;")
+        testForConstSupport();
+      }
+      catch(e) {
+        // Browser does not support const - cannot run FaceTecSDK
+        // Call incompatible browser handler here
+        document.getElementById("error-line").innerHTML = "FaceTec Browser SDK failed to load in the browser. It does not support ES2015. Please upgrade to a modern browser.<br/><br/>";
+      }
+    })();
+  </script>
+  <script src="../../core-sdk/FaceTecSDK.js/FaceTecSDK.js"></script>
+  <script>
+    document.getElementById("error-line").innerHTML += navigator.userAgent;
+  </script>
+  <script>
+    document.onclick = function() {
+      window.location.href = "../../"
+    };
+  </script>
+</html>

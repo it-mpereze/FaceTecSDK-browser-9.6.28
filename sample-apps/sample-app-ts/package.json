@@ -1,0 +1,18 @@
+{
+  "name": "facetec-browser-sample-app-ts",
+  "version": "1.0.0",
+  "author": "FaceTec, Inc",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "@types/node": "^11.15.50",
+    "jshint": "^2.12.0",
+    "source-map-loader": "^1.1.3",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.1.5",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0"
+  }
+}

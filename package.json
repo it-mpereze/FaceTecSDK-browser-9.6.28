@@ -1,0 +1,13 @@
+{
+  "name": "facetec-browser-sdk",
+  "version": "9.6.28",
+  "description": "FaceTec Browser SDK & Sample Code",
+  "main": "FaceTecSDK.js",
+  "scripts": {
+    "facetec-browser-sdk": "live-server --host=localhost --port=8000"
+  },
+  "author": "FaceTec, Inc.",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
+}

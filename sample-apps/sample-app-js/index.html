@@ -1,0 +1,130 @@
+ <!-- Welcome to the FaceTec Browser Sample App
+
+ This sample demonstrates Initialization, Liveness Check, Enrollment, Authentication, Photo ID Match, Customizing the UX, and Getting Audit Trail Images.
+
+ Please use our technical support form to submit questions and issue reports:  https://dev.facetec.com/#/support -->
+<!DOCTYPE html>
+<head>
+  <title>Browser SDK - Sample App</title>
+  <meta charset="utf-8" />
+  <link rel="icon" href="../../sample-app-resources/images/favicon.ico">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i');
+  </style>
+  <link rel="stylesheet" href="./css/style.css?v1">
+  <!-- Add iOS meta tags and icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Browser SDK - Sample App">
+  <script type="text/javascript" src="../../sample-app-resources/js/very-old-browser-check.js"></script>
+  <script type="module">
+		import { Config } from "/Config.js"
+		window.Config = Config</script>
+  <script>
+    fetch('../../sample-app-resources/FaceTec_OCR_Customization.json')
+    .then(response => {
+        return response.json();
+    })
+    .then(data =>{
+      console.log(data);
+       window.ocrLocalizationJSON = data
+    });
+  </script>
+  <script type="text/javascript" src="../../FaceTecStrings.es.js"></script>
+	<script src="../../core-sdk/FaceTecSDK.js/FaceTecSDK.js"></script>
+	<script type="text/javascript" src="./processors/AuthenticateProcessor.js"></script>
+	<script type="text/javascript" src="./processors/EnrollmentProcessor.js"></script>
+	<script type="text/javascript" src="./processors/LivenessCheckProcessor.js"></script>
+	<script type="text/javascript" src="./processors/PhotoIDMatchProcessor.js"></script>
+  <script type="text/javascript" src="./processors/PhotoIDScanProcessor.js"></script>
+  <script type="text/javascript" src="./processors/Authenticate3d2dProcessor.js"></script>
+  <script type="text/javascript" src="./processors/Authenticate2d2dProcessor.js"></script>
+  <script type="text/javascript" src="./processors/SearchProcessor.js"></script>
+  <script type="text/javascript" src="./processors/GetUserProcessor.js"></script>
+  <script type="text/javascript" src="./processors/EnrollUserProcessor.js"></script>
+  <script type="text/javascript" src="./processors/DeleteUserProcesor.js"></script>
+	<script type="text/javascript" src="./utilities/SampleAppUIFunctions.js"></script>
+	<script type="text/javascript" src="./utilities/SampleAppUtilities.js"></script>
+	<script type="text/javascript" src="./utilities/ThemeHelpers.js"></script>
+	<script type="text/javascript" src="./utilities/AdditionalScreens.js"></script>
+	<script type="text/javascript" src="./utilities/SoundFileUtilities.js"></script>
+	<script type="text/javascript" src="./sampleAppController.js"></script>
+	<script >
+		const ServerUpgradeLogo = '../../../../sample-app-resources/images/upgrade.png'
+		const FACESCAN_SUCCESSFUL_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/facescan_successful_sound_file.mp3'
+		const PLEASE_FRAME_YOUR_FACE_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_frame_your_face_sound_file.mp3'
+		const PLEASE_MOVE_CLOSER_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_move_closer_sound_file.mp3'
+		const PLEASE_PRESS_BUTTON_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_press_button_sound_file.mp3'
+		const PLEASE_RETRY_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/please_retry_sound_file.mp3'
+		const UPLOADING_SOUND_FILE = '../../../../sample-app-resources/Vocal_Guidance_Audio_Files/uploading_sound_file.mp3'
+	</script >
+</head>
+<body>
+  <div id="loader-container">
+    <div class="loader"></div>
+    <label class="label-loader" id="label-loader">Cargando... por favor espere.</label>
+  </div>
+  <div class="wrapping-box-container">
+    <div id="main-interface">
+      <div id="controls">
+        <div id="vocal-icon-container">
+          <div><img id="vocal-guidance-icon-minimal" disabled class="vocal-icon" src="../../sample-app-resources/images/themes/karalundi/vocal_minimal_orange.png" onclick="SampleApp.onVocalGuidanceSettingsButtonPressed()"></div>
+          <div><img id="vocal-guidance-icon-full" disabled class="vocal-icon vocal-guidance-icon-full display-none" src="../../sample-app-resources/images/themes/karalundi/vocal_full_orange.png" onclick="SampleApp.onVocalGuidanceSettingsButtonPressed()"></div>
+          <div><img id="vocal-guidance-icon-off" disabled class="vocal-icon vocal-guidance-icon-off display-none" src="../../sample-app-resources/images/themes/karalundi/vocal_off_orange.png" onclick="SampleApp.onVocalGuidanceSettingsButtonPressed()"></div>
+        </div>
+        <input id="external-database-refid" placeholder="ID de Usuario" class="big-input">
+        <input id="group-name" placeholder="Group Name" class="big-input">
+        <button id="liveness-button" disabled onclick="SampleApp.onLivenessCheckPressed()" class="big-button">3D Liveness Check</button>
+        <button id="enroll-button" disabled onclick="SampleApp.onEnrollUserPressed()" class="big-button">Enroll User 1:1</button>
+        <button id="authenticate-3d-3d-button" disabled onclick="SampleApp.onAuthenticate3d3dUserPressed()" class="big-button">Authenticate 3D 3D 1:1</button>
+        <button id="authenticate-3d-2d-button" disabled onclick="SampleApp.onAuthenticate3d2dUserPressed()" class="big-button">Authenticate 3D 2D 1:1</button>
+        <button id="authenticate-2d-2d-button" disabled onclick="SampleApp.onAuthenticate2d2dUserPressed()" class="big-button">Authenticate 2D 2D 1:1</button>
+        <button id="id-scan-button" disabled onclick="SampleApp.onPhotoIDMatchPressed()" class="big-button">Photo ID Match 1:1</button>
+        <button id="photo-id-scan-button" disabled onclick="SampleApp.onPhotoIDScanPressed()" class="big-button">Scan & OCR ID</button>
+        <button id="search-user-button" disabled onclick="SampleApp.onSearchUserPressed()" class="big-button">Search User 1:N</button>
+        <button id="get-user-button" disabled onclick="SampleApp.onGetUserPressed()" class="big-button">Get User 1:N</button>
+        <button id="enroll-user-button" disabled onclick="SampleApp.onEnroll1NUserPressed()" class="big-button">Enroll User 1:N</button>
+        <button id="delete-user-button" disabled onclick="SampleApp.onDeleteUserPressed()" class="big-button">Delete User</button>
+        <div class="content-input-file">
+          <label for="file2" class="Inputlabel">Image 2D 1</label>
+          <input id="file1" name="file1" type="file" class="big-input-file" onchange="SampleApp.onSelectImage1Pressed(this.files)" accept="image/png, image/jpeg">
+        </div>
+        <div class="content-input-file">
+          <label for="file2" class="Inputlabel">Image 2D 2</label>
+          <input id="file2" name="file2" type="file" class="big-input-file" onchange="SampleApp.onSelectImage2Pressed(this.files)" accept="image/png, image/jpeg">
+        </div>
+        <button id="audit-trail-button" disabled onclick="SampleApp.onViewAuditTrailPressed()" class="medium-button">View Audit Trail</button>
+        <button id="design-showcase-button" disabled onclick="SampleApp.onDesignShowcasePressed()" class="medium-button">Design Showcase</button>
+        <p id="status">Initializing...</p>
+      </div>
+      <div id="additional-screen" display="flex">
+        <div id="additional-screen-image-and-text">
+          <img id="additional-screen-logo">
+          <h2>Server Upgrade In Progress</h2>
+          <div id="additional-screen-text"></div>
+        </div>
+        <button id="additional-screen-button" class="big-button browser-button"">OK</button>
+      </div>
+    </div>
+    <div id="custom-logo-container">
+      <img src="../../sample-app-resources/images/themes/karalundi/karalundi_transp.png">
+    </div>
+  </div>
+  <footer>
+    <span id="copy-right-section">
+      <p id="copy-right">&copy; 2021 FaceTec, Inc. &thinsp;&middot;&thinsp; Multiple US & International Patents Granted&thinsp;&middot;&thinsp; All Rights Reserved</p>
+      <hr class="hr display-none"></hr>
+      <p style="font-size: 1em"><a href="https://dev.facetec.com/policies/terms.html" target="_blank">Terms &amp; Conditions</a>&thinsp;&middot;&thinsp; <a href="https://dev.facetec.com/policies/privacy_site.html" target="_blank">Site Privacy Policy</a>&thinsp;&middot;&thinsp; <a href=https://dev.facetec.com/policies/privacy_sdk.html target="_blank">SDK Privacy Policy</a></p>
+    </span>
+    <div class="footer-bottom"></div>
+  </footer>
+  <div id="copy-right-length">&copy; 2021 FaceTec, Inc. &thinsp;&middot;&thinsp; Multiple US & International Patents Granted&thinsp;&middot;&thinsp; All Rights Reserved</div>
+  <div class = "loading-session-token-container">
+    <p id="loading-session-token-text">Network Connection Slow...</p>
+  </div>
+  <div id="theme-transition-overlay">
+    <img id="theme-transition-overlay-img" onerror="this.style.display='none'" onload="this.style.display='block'" src="">
+  </div>
+</body>
+</html>

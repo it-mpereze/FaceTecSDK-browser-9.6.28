@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+  <title>FaceTec Browser Demo Home</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" href="./sample-app-resources/images/favicon.ico">
+</head>
+<style>
+  * {
+    font-size: 100%;
+    font-family: 'Source Sans Pro', Helvetica, sans-serif;
+    color: rgb(65, 127, 178);
+  }
+
+  html {
+    overflow: auto;
+    height: 100%;
+    background: white;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .navbar {
+    background-color: #111;
+    width: 318px;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 16px 0;
+    z-index: 1;
+  }
+
+  @media (max-width: 1280px) {
+    .navbar {
+      display: none;
+    }
+  }
+
+  .navbar a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 15px;
+    line-height: 24px;
+    color: rgb(65, 127, 178);
+    display: block;
+    font-weight: 400;
+  }
+
+  .navbar a:hover {
+    color: white;
+  }
+
+  .logoContainer {
+    width: 250px;
+    margin: 15px auto;
+    color:rgb(65, 127, 178);
+    font-size: 12px;
+    position: relative;
+    text-align: center;
+  }
+
+  .logo {
+    height: 50px;
+  }
+</style>
+<body>
+  <div class="navbar" id="browser-nav-bar" style="display:block;">
+    <div class="logoContainer">
+        <img src="./sample-app-resources/images/FaceTec_Logo_White.png" class="logo">
+      <div>Browser Apps</div>
+    </div>
+
+    <a href="./sample-apps/sample-app-ts/">Sample App TS</a>
+    <a href="./sample-apps/sample-app-js/">Sample App JS</a>
+    <a href="./sample-apps/compat-info/">Compat Info</a>
+    
+  </div>
+</body>
