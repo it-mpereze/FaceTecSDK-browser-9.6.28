@@ -8,7 +8,7 @@ export var Config = (function () {
     // REQUIRED
     // Available at https://dev.facetec.com/#/account
     // NOTE: This field is auto-populated by the FaceTec SDK Configuration Wizard.
-    var DeviceKeyIdentifier = "YOUR_DEVICE_KEY_IDENTIFIER_HERE";
+    var DeviceKeyIdentifier = "dnTDuwQzkgM5F1IeW6AMFOLOwPWf18p7";
 
     // -------------------------------------
     // REQUIRED
@@ -16,17 +16,29 @@ export var Config = (function () {
     // In Production, you likely will handle network requests elsewhere and without the use of this variable.
     // See https://dev.facetec.com/#/security-best-practices?link=facetec-server-rest-endpoint-security for more information.
     // NOTE: This field is auto-populated by the FaceTec SDK Configuration Wizard.
-    var BaseURL = "YOUR_BASEURL_HERE";
+    var BaseURL = "https://smb-zcs-dev.koalavsp.com";//Url de nuestro MiddleWare--
 
     // -------------------------------------
     // REQUIRED
     // The FaceMap Encryption Key you define for your application.
     // Please see https://dev.facetec.com/#/keys?link=keys for more information.
     // NOTE: This field is auto-populated by the FaceTec SDK Configuration Wizard.
-    var PublicFaceScanEncryptionKey = "YOUR_PUBLIC_FACESCAN_ENCRYPTION_HERE";
+    var PublicFaceScanEncryptionKey = "-----BEGIN PUBLIC KEY-----"
++"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3irIdgBSVvXMWiVzWzSC"
++"5zMDye1VHfInpnQaQxChfydzGW3VVnUhTVCYFnGbJqmGBmHYBN+6ssbHXE5gKg5R"
++"lJSiRmqY+pb5EohJnWWsFOeZuMFK0QjiAQjVGQjktzcknm/KPCh95j6r7sSrwdp9"
++"KRDf1euT32USmhUwF55TJkw2yH1RYf+5uid9p1AShYQDHuDvwKXD04L5FslI26fn"
++"GxifxwR0pA0CGsjcdv/8u/rgpDZuFDgK1G7rn4gdVQTqnX4wzqk3FWL7MWqJh8aL"
++"6hdZCKYcL0PanLhY2mVfRerVx1bnPGardn9nQ+G2YliM/B/A8X4kM871G34mbnF7"
++"awIDAQAB"
++"-----END PUBLIC KEY-----";
 
     /*YOUR_PRODUCTION_KEY FROM {{BaseURL}}/getInitString/web*/
-    var ProductionKey =  {"expiryDate":"YYYY-MM-DD","domains":"","key":""};  
+    var ProductionKey = {
+      expiryDate: "2023-06-10",
+      domains: "",
+      key: "0030450221008819df9cb6a586af76297136fe392a6b8b0e9b2178ca7cae4bb80353bb6be97a02205a7bc0802e7d9ae88d70373af3868bda344e2654d1b198bfe97a60c79aa9ead2",
+    };  
     
     // -------------------------------------
     // Convenience method to initialize the FaceTec SDK.
